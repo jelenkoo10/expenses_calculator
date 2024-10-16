@@ -46,7 +46,7 @@ class LoginPage extends StatelessWidget {
 
               ElevatedButton(
                 onPressed: () {
-                  // Handle login functionality
+                  Navigator.pushReplacementNamed(context, '/home');
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFFFFEB3B),
@@ -79,21 +79,27 @@ class LoginPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              RichText(
-                text: const TextSpan(
-                  text: 'Nemate nalog? ',
-                  style: TextStyle(color: Colors.black),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Registrujte se.',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Nemate nalog? ',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/register');
+                    },
+                    child: const Text(
+                      'Registrujte se.',
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
+                        color: Colors.black,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

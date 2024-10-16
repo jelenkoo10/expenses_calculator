@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'widgets/header.dart';
-import 'widgets/footer.dart';
+import '../widgets/footer.dart';
+import '../widgets/header.dart';
 
 class WalletDetailPage extends StatefulWidget {
   @override
@@ -8,7 +8,7 @@ class WalletDetailPage extends StatefulWidget {
 }
 
 class _WalletDetailPageState extends State<WalletDetailPage> with SingleTickerProviderStateMixin {
-  TabController _tabController;
+  late TabController _tabController;
 
   @override
   void initState() {
@@ -25,68 +25,67 @@ class _WalletDetailPageState extends State<WalletDetailPage> with SingleTickerPr
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
+      appBar: const PreferredSize(
         preferredSize: Size.fromHeight(80.0),
         child: Header(),
       ),
       body: TabBarView(
         controller: _tabController,
         children: [
-          _buildStateTab(),
+          _buildStateTab(context),
           _buildTransactionsTab(),
         ],
       ),
-      bottomNavigationBar: Footer(),
+      bottomNavigationBar: const Footer(),
     );
   }
 
   // Building the State Tab content
-  Widget _buildStateTab() {
+  Widget _buildStateTab(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Stanje na računu', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-          Text('\$190,008.03', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
-          SizedBox(height: 8),
+          const Text('Stanje na računu', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+          const Text('\$190,008.03', style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 8),
           Row(
-            children: [
+            children: const [
               Text('+8%', style: TextStyle(color: Colors.green, fontSize: 16)),
               SizedBox(width: 8),
               Icon(Icons.flag, color: Colors.blue),
             ],
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _buildActionButton('Skeniraj', Icons.scanner),
-              _buildActionButton('Prihod', Icons.add),
-              _buildActionButton('Rashod', Icons.remove),
+              _buildActionButton('Prihod', Icons.add, () => _showPrihodDialog(context)),
+              _buildActionButton('Rashod', Icons.remove, () => _showRashodDialog(context)),
             ],
           ),
-          SizedBox(height: 32),
-          Text('Korisnici novčanika', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          SizedBox(height: 16),
+          const SizedBox(height: 32),
+          const Text('Korisnici novčanika', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16),
           // User Avatars
           Row(
-            children: [
+            children: const [
               CircleAvatar(child: Icon(Icons.add)),
               SizedBox(width: 8),
-              CircleAvatar(backgroundImage: AssetImage('assets/user.png')),
+              CircleAvatar(backgroundImage: AssetImage('assets/images/user.png')),
               SizedBox(width: 8),
-              CircleAvatar(backgroundImage: AssetImage('assets/user.png')),
+              CircleAvatar(backgroundImage: AssetImage('assets/images/user.png')),
               SizedBox(width: 8),
-              CircleAvatar(backgroundImage: AssetImage('assets/user.png')),
+              CircleAvatar(backgroundImage: AssetImage('assets/images/user.png')),
               SizedBox(width: 8),
-              CircleAvatar(backgroundImage: AssetImage('assets/user.png')),
+              CircleAvatar(backgroundImage: AssetImage('assets/images/user.png')),
             ],
           ),
-          SizedBox(height: 32),
-          Text('Finansijsko zdravlje', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-          SizedBox(height: 16),
-          Image.asset('assets/financial_chart.png', height: 120),
+          const SizedBox(height: 32),
+          const Text('Finansijsko zdravlje', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 16),
         ],
       ),
     );
@@ -106,14 +105,14 @@ class _WalletDetailPageState extends State<WalletDetailPage> with SingleTickerPr
     );
   }
 
-  Widget _buildActionButton(String label, IconData icon, [VoidCallback onPressed]) {
+  Widget _buildActionButton(String label, IconData icon, [VoidCallback? onPressed]) {
     return ElevatedButton.icon(
       onPressed: onPressed,
       icon: Icon(icon, color: Colors.white),
       label: Text(label),
       style: ElevatedButton.styleFrom(
-        primary: Colors.purple[100],
-        onPrimary: Colors.black,
+        backgroundColor: Colors.purple[100],
+        iconColor: Colors.black,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
         ),
@@ -124,10 +123,9 @@ class _WalletDetailPageState extends State<WalletDetailPage> with SingleTickerPr
   // Widget for individual transaction tiles
   Widget _buildTransactionTile(String type, String date, String amount) {
     return ListTile(
-      // leading: Image.asset(iconPath, height: 40),
       title: Text(type),
       subtitle: Text(date),
-      trailing: Text(amount, style: TextStyle(fontWeight: FontWeight.bold)),
+      trailing: Text(amount, style: const TextStyle(fontWeight: FontWeight.bold)),
     );
   }
 
@@ -160,31 +158,31 @@ class _WalletDetailPageState extends State<WalletDetailPage> with SingleTickerPr
   }
 
   // Common popup dialog builder for "Prihod" and "Rashod"
-  Widget _buildPopupDialog(BuildContext context, {String title, String description}) {
+  Widget _buildPopupDialog(BuildContext context, {required String title, required String description}) {
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+      title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextField(
+          const TextField(
             decoration: InputDecoration(
               labelText: 'Naziv',
             ),
           ),
-          TextField(
+          const TextField(
             decoration: InputDecoration(
               labelText: 'Iznos',
             ),
             keyboardType: TextInputType.number,
           ),
           DropdownButtonFormField(
-            items: [
+            items: const [
               DropdownMenuItem(child: Text('Kategorija 1'), value: '1'),
               DropdownMenuItem(child: Text('Kategorija 2'), value: '2'),
             ],
             onChanged: (value) {},
-            decoration: InputDecoration(labelText: 'Kategorija'),
+            decoration: const InputDecoration(labelText: 'Kategorija'),
           ),
           TextField(
             decoration: InputDecoration(
@@ -196,8 +194,8 @@ class _WalletDetailPageState extends State<WalletDetailPage> with SingleTickerPr
       ),
       actions: <Widget>[
         ElevatedButton(
-          style: ElevatedButton.styleFrom(primary: Colors.yellow),
-          child: Text("Dodaj"),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.yellow),
+          child: const Text("Dodaj"),
           onPressed: () {
             Navigator.of(context).pop(); // Close the dialog
           },

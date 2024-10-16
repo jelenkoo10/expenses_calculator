@@ -77,7 +77,7 @@ class RegisterPage extends StatelessWidget {
                   // Handle Google login functionality
                 },
                 icon: Image.asset(
-                  'assets/images/google_logo.png', // Google logo
+                  'assets/images/google.png', // Google logo
                   height: 24,
                 ),
                 label: Text('Sign in with Google'),
@@ -91,21 +91,27 @@ class RegisterPage extends StatelessWidget {
               ),
               const SizedBox(height: 20),
 
-              RichText(
-                text: const TextSpan(
-                  text: 'Imate nalog? ',
-                  style: TextStyle(color: Colors.black),
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Prijavite se.',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Imate nalog? ',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/');
+                    },
+                    child: const Text(
+                      'Prijavite se.',
                       style: TextStyle(
-                        color: Colors.black,
                         fontWeight: FontWeight.bold,
                         decoration: TextDecoration.underline,
+                        color: Colors.black,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

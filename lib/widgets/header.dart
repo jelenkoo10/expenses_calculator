@@ -12,7 +12,7 @@ class Header extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
-            'assets/logo.png',
+            'assets/images/logo.png',
             width: 40,
             height: 40,
           ),

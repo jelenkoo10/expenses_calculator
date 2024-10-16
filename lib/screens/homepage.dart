@@ -4,12 +4,12 @@ import '../widgets/footer.dart';
 import '../widgets/wallet_card.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
+      appBar: const PreferredSize(
         preferredSize: Size.fromHeight(80),
         child: Header(),
       ),
@@ -34,16 +34,25 @@ class HomePage extends StatelessWidget {
                   title: 'Moj novčanik',
                   subtitle: 'Samo Vi',
                   amount: '246\$',
+                  onOpenPressed: () {
+                    Navigator.pushNamed(context, '/walletDetail');
+                  },
                 ),
                 WalletCard(
                   title: 'Firma novčanik',
                   subtitle: 'Vi i još 3 osobe',
                   amount: '246\$',
+                  onOpenPressed: () {
+                    Navigator.pushNamed(context, '/walletDetail');
+                  },
                 ),
                 WalletCard(
                   title: 'Moj novčanik',
                   subtitle: 'Samo Vi',
                   amount: '246\$',
+                  onOpenPressed: () {
+                    Navigator.pushNamed(context, '/walletDetail');
+                  },
                 ),
               ],
             ),
